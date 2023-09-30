@@ -2,7 +2,8 @@
 
 //percorrendo o DOM 
 //usando o data atribute
-const criarTarefa = (evento) => {
+(()=> {
+    const criarTarefa = (evento) => {
 
     //previni o dado de ir para algum lugar.
     evento.preventDefault()
@@ -14,14 +15,15 @@ const criarTarefa = (evento) => {
 
     //propriedade que me devolve o valor 
     const valor = input.value
- 
+
 
     const tarefa = document.createElement('li')
     tarefa.classList.add('task')
     const conteudo = ` <p class="content" >${valor}</p>`
-    // o ineerHTML me permiti ter acesso ao esse conteudo 
+    // o ineerHTML me permiti ter acesso a esse conteudo 
     tarefa.innerHTML = conteudo
     //criando hierarquia
+    tarefa.appendChild(BotaoConcluir())
     lista.appendChild(tarefa)
 
 }
@@ -29,3 +31,27 @@ const criarTarefa = (evento) => {
 const novaTarefa = document.querySelector('[data-form-button]');
 //escutador: evento > onde que vai colocar o evento > o que acontece depois
 novaTarefa.addEventListener('click', criarTarefa)
+
+//componentes 
+
+const BotaoConcluir = () => {
+    const botaoConclui = document.createElement('button')
+
+    botaoConclui.addEventListener('click', concluirTarefa)
+    botaoConclui.classList.add('check-button')
+    botaoConclui.innerText = "conclui"
+    return botaoConclui
+
+}
+
+const concluirTarefa = (evento) => {
+
+    const botaoConclui = evento.target
+
+    const tarefaCompleta = botaoConclui.parentElement
+
+    tarefaCompleta.classList.toggle('done')
+
+}
+})()
+//regra de negocio 
